@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Loki Clicks the Cosmos</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding: 50px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      animation: glow 3s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px red; }
+      to { text-shadow: 0 0 20px cyan; }
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    button {
+      font-size: 22px;
+      padding: 15px 30px;
+      margin: 10px;
+      background-color: #222;
+      color: white;
+      border: 2px solid white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #444;
+      transform: scale(1.05);
+    }
+
+    #log {
+      margin-top: 40px;
+      height: 250px;
+      width: 90%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      overflow-y: auto;
+      border: 1px solid white;
+      padding: 15px;
+      background-color: #111;
+      text-align: left;
+    }
+
+    .mutation {
+      color: lightgreen;
+    }
+
+    .admin {
+      color: red;
+    }
+
+    #world {
+      margin-top: 30px;
+      font-size: 20px;
+      color: cyan;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Loki Clicks the Cosmos</h1>
+  <p>Tap an element. Every 10 taps, something mutates. Watch for God-Admin...</p>
+
+  <div>
+    <button onclick="spawn('Fire')">🔥 Fire</button>
+    <button onclick="spawn('Ice')">❄️ Ice</button>
+    <button onclick="spawn('Shadow')">🌑 Shadow</button>
+    <button onclick="spawn('Sound')">🔊 Sound</button>
+  </div>
+
+  <div id="world">🌌 Empty Void</div>
+  <div id="log"></div>
+
+  <!-- Background music -->
+  <audio id="bgm" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/30/audio_6d2ae6a9cd.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    let counter = 0;
+    const log = document.getElementById("log");
+    const world = document.getElementById("world");
+
+    const mutations = [
+      "a screaming phoenix",
+      "an iceberg that sings",
+      "a shadow-beast with too many eyes",
+      "a song that eats stars",
+      "a flame that speaks truths",
+      "a whisper that freezes gods",
+      "a child made of void",
+      "a loop of endless thunder"
+    ];
+
+    const worlds = [
+      "🌍 Fiery Realm",
+      "❄️ Frozen Wastes",
+      "🌘 The Long Shadow",
+      "🎶 The Singing Sky",
+      "🌠 The Trickster's Playground",
+      "🌌 Realm of Reversals",
+      "🌑 End of Time",
+      "🔀 Womb of Chaos"
+    ];
+
+    function spawn(type) {
+      counter++;
+
+      // Chance of god-admin interference
+      if (Math.random() < 0.15) {
+        counter = Math.max(0, counter - 1);
+        log.innerHTML += `<div class="admin">🚩 God-Admin has reverted your ${type}!</div>`;
+        scrollLog();
+        return;
+      }
+
+      log.innerHTML += `<div>${type} element spawned.</div>`;
+
+      // Mutation and world change every 10 taps
+      if (counter % 10 === 0) {
+        const m = mutations[Math.floor(Math.random() * mutations.length)];
+        const w = worlds[Math.floor(Math.random() * worlds.length)];
+        log.innerHTML += `<div class="mutation">✨ Mutation: ${m} is born.</div>`;
+        world.innerHTML = w;
+      }
+
+      scrollLog();
+    }
+
+    function scrollLog() {
+      log.scrollTop = log.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>
